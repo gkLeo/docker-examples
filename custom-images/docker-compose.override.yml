@@ -32,6 +32,7 @@ services:
   solr:
     volumes:
       - ${LOCAL_DATA_PATH}\solr:c:\data
+      - ${SOLR_CONFIG_PATH}:c:\solr-config
 
   # Some modules (like SXA) also require additions to the Solr image.
   solr-init:
