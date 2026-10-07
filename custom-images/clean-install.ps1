@@ -76,7 +76,5 @@ if (-not $status.status -eq "enabled") {
     Write-Error "Timeout waiting for Sitecore CM to become available via Traefik proxy. Check CM container logs."
 }
 
-# Execute the Sitecore Identity Server 8 upgrade script
-.\execute-mssql-script.ps1 -filePath ".env"
 
 Write-Host "***Setup completed successfully***" -ForegroundColor Green
