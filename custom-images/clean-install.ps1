@@ -8,8 +8,7 @@ Write-Host "  1. Stop all containers`n" -ForegroundColor DarkCyan
 Write-Host "  2. Docker Prune -Remove all unused containers, networks, images (both dangling and unreferenced), and optionally, volumes`n" -ForegroundColor DarkCyan
 Write-Host "  3. Stop IIS, Stop/Start Host Network Service (HNS)`n" -ForegroundColor DarkCyan
 Write-Host "  4. Run .\clean.ps1 from Sitecore > Docker`n" -ForegroundColor DarkCyan
-Write-Host "  5. Restore Sitecore CLI Tool`n" -ForegroundColor DarkCyan
-Write-Host "  6. Run docker compose up command`n" -ForegroundColor DarkCyan
+Write-Host "  5. Run docker compose up command`n" -ForegroundColor DarkCyan
 
 Write-Host "`n`n1. Stop all containers..." -ForegroundColor Cyan
 docker container stop $(docker container ls -q --filter name=docker-examples*);
@@ -37,12 +36,15 @@ Write-Host "`n`n4. Clean all previous build artifacts" -ForegroundColor Cyan
 Push-Location docker
 .\clean.ps1
 
-Write-Host "`n`n5. Restore Sitecore CLI tool" -ForegroundColor Cyan
+Write-Host "`n`n5. Build/Compose Docker" -ForegroundColor Cyan
 Pop-Location
-dotnet tool restore
 
-Write-Host "`n`n6. Build/Compose Docker" -ForegroundColor Cyan
-Pop-Location
+# Build all containers in the Sitecore instance
+Write-Host "Building containers..." -ForegroundColor Green
+docker compose build
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Container build failed, see errors above."
+}
 
 
 if ($XM1 -ieq 'XM1') {

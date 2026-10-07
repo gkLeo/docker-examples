@@ -17,6 +17,16 @@ Param (
     # and used only for transient local example environment.
     [string]
     $SqlSaPassword = "Password12345"
+
+    # We do not need to use [SecureString] here since the value will be stored unencrypted in .env,
+    # and used only for transient local example environment.
+    [string]
+    $SolrAdminPassword = "Password12345"
+
+    # We do not need to use [SecureString] here since the value will be stored unencrypted in .env,
+    # and used only for transient local example environment.
+    [string]
+    $SolrConnectionPassword = "Password12345"
 )
 
 $ErrorActionPreference = "Stop";
@@ -65,6 +75,12 @@ Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value $SitecoreAdminPassword
 
 # SQL_SA_PASSWORD
 Set-EnvFileVariable "SQL_SA_PASSWORD" -Value $SqlSaPassword
+
+# SOLR_ADMIN_PASSWORD
+Set-EnvFileVariable "SOLR_ADMIN_PASSWORD" -Value $SolrAdminPassword
+
+# SOLR_CONNECTION_PASSWORD
+Set-EnvFileVariable "SOLR_CONNECTION_PASSWORD" -Value $SolrConnectionPassword
 
 # CD_HOST
 Set-EnvFileVariable "CD_HOST" -Value "cd.$($HostName).localhost"
